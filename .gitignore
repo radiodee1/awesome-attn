@@ -1,3 +1,7 @@
+OpenNMT-py/
+raw/
+sum_transformer_model_acc_57.25_ppl_9.22_e16.pt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
