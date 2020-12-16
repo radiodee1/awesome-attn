@@ -1,6 +1,7 @@
 git clone https://github.com/OpenNMT/OpenNMT-py.git
 cd OpenNMT-py
-pip install -e .
+#pip install -e .
+python setup.py install
 
 pip install -r requirements.opt.txt
 
