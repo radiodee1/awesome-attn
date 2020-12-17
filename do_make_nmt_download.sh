@@ -1,4 +1,5 @@
-git clone https://github.com/OpenNMT/OpenNMT-py.git
+#git clone https://github.com/OpenNMT/OpenNMT-py.git
+git submodule init
 cd OpenNMT-py
 #pip install -e .
 python setup.py install
