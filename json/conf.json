@@ -1,0 +1,17 @@
+{
+    "models_root": "../raw",
+    "models": [
+        {   
+            "id": 100,
+            "model": "sum_transformer_model_acc_57.25_ppl_9.22_e16.pt",
+            "timeout": 600,
+            "on_timeout": "to_cpu",
+            "load": true,
+            "opt": {
+                "gpu": 0,
+                "beam_size": 5
+            }  
+        }
+    ]   
+}
+
