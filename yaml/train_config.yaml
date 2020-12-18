@@ -1,15 +1,7 @@
 data:
     corpus_1:
-        path_src: data/hello-src.txt
-        path_tgt: data/hello-src.txt
-        weight: 7
-    corpus_2:
-        path_src: data/hello-src.txt
-        path_tgt: data/hello-src.txt
-        weight: 3
-    valid:
-        path_src: data/hello-src.txt
-        path_tgt: data/hello-src.txt
+        path_src: data/train.from
+        path_tgt: data/train.to
 
 
 save_model: foo
