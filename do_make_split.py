@@ -120,7 +120,7 @@ if __name__ == '__main__':
     parser.add_argument('--to-gpt2', help='format file for later use with gpt2.', action='store_true')
     parser.add_argument('--babi-for-gpt2', help='train gpt2 for training with babi synthetic data set.', action='store_true')
     parser.add_argument('--filter-possessive', help='filter only possessive sentences for gpt2.', action='store_true')
-    parser.add_argument('--force', help='force normal file creation -- not used.', action='store_true')
+    parser.add_argument('--force', help='force normal file creation -- disable repeat detection.', action='store_true')
 
     args = parser.parse_args()
     args = vars(args)
@@ -278,12 +278,13 @@ if __name__ == '__main__':
     
     if args['force']:
         #arg_processed = False
-        arg_babi_for_gpt2 = True
-        arg_pairs = True
-        arg_eol = True
+        #arg_babi_for_gpt2 = True
+        #arg_pairs = True
+        #arg_eol = True
         #arg_stagger = True
-        arg_question = 'eol'
-        arg_filename = os.path.abspath(arg_filename)
+        #arg_question = 'eol'
+        #arg_filename = os.path.abspath(arg_filename)
+        pass
 
     #########
 
@@ -432,10 +433,11 @@ if __name__ == '__main__':
                 if num >= arg_start and (arg_length == 0 or num < arg_start + arg_length):
                     line = line.split('\t')
 
-                    line[0] = format(line[0])
-                    line[1] = format(line[1])
+                    if not args['force']:
+                        line[0] = format(line[0])
+                        line[1] = format(line[1])
 
-                    line[0], line[1] = move_order(line[0], line[1])
+                        line[0], line[1] = move_order(line[0], line[1])
 
                     if arg_eol and len(line[0]) > 1:
                         line[0] += ' ' + hparams['eol']
@@ -521,7 +523,8 @@ if __name__ == '__main__':
                                 #if i != 0: print('bad string')
                                 hist_stagger = ''
 
-                            src_stagger = stop_repeats(src_stagger)
+                            if not args['force']:
+                                src_stagger = stop_repeats(src_stagger)
                             if not args['stagger_predict_word']:
                                 src.write(src_stagger.lower())
                             else:

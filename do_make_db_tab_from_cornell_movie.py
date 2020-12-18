@@ -222,7 +222,7 @@ if __name__ == '__main__':
                 #if done: #acceptable(body) and acceptable(reply) and done :
                 done = False
                 
-                if row_counter % 2 == 0 : #or shift_and_repeat:
+                if args['repeat'] or row_counter % 2 == 0 : #or shift_and_repeat:
                     if test_on_screen :
                         print(body, '-body-',row_counter)
                         print(reply,'-reply-',row_counter)
