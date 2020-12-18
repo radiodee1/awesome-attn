@@ -8,7 +8,7 @@ if [ -f raw/cornell_movie_dialogs_corpus.zip ] ; then
         echo "unzipped"
         cd raw
         cp cornell\ movie-dialogs\ corpus/movie_lines.txt ..
-
+        cd ..
     else
         cd raw
         unzip cornell_movie_dialogs_corpus.zip
@@ -25,4 +25,7 @@ else
     cp cornell\ movie-dialogs\ corpus/movie_lines.txt ..
     cd ..
 fi
+
+
+mv movie_lines.txt data/.
 

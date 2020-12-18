@@ -120,6 +120,7 @@ if __name__ == '__main__':
     parser.add_argument('--to-gpt2', help='format file for later use with gpt2.', action='store_true')
     parser.add_argument('--babi-for-gpt2', help='train gpt2 for training with babi synthetic data set.', action='store_true')
     parser.add_argument('--filter-possessive', help='filter only possessive sentences for gpt2.', action='store_true')
+    parser.add_argument('--force', help='force normal file creation -- not used.', action='store_true')
 
     args = parser.parse_args()
     args = vars(args)
@@ -274,12 +275,21 @@ if __name__ == '__main__':
 
     if arg_classifier != "":
         arg_end_filename = ".output.tsv"
+    
+    if args['force']:
+        #arg_processed = False
+        arg_babi_for_gpt2 = True
+        arg_pairs = True
+        arg_eol = True
+        #arg_stagger = True
+        arg_question = 'eol'
+        arg_filename = os.path.abspath(arg_filename)
 
     #########
-    arg_destination = arg_filename + arg_end_filename #'.output.txt'
-    if arg_destination.startswith('/'):
-        arg_destination = './' + arg_destination
 
+    arg_filename = os.path.abspath(arg_filename)
+
+    arg_destination = arg_filename + arg_end_filename #'.output.txt'
 
     if arg_babi_for_gpt2:
 

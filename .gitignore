@@ -2,6 +2,8 @@ raw/
 data/
 sum_transformer_model_acc_57.25_ppl_9.22_e16.pt
 *.txt
+*.from
+*.to
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
