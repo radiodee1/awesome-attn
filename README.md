@@ -3,6 +3,7 @@ workspace for attention experiments
 
 ## starting scripts
 
+* `. ./do_make_source_virtualenv.sh` - setup virtual environment. (Note leading dot!)
 * `./do_make_nmt_init.sh` - init submodule.
 * `./do_make_movie_download.sh` - run this to download movie subtitles database.
 * `./do_make_db_tab_from_cornell_movie.py data/movie_lines.txt --text-file --repeat` - run this to get individual question/answers.
