@@ -7,7 +7,7 @@ cd ..
 
 pip install -r requirements.amd64.txt
 
-cd ..
+#cd ..
 mkdir raw
 cd raw
 
