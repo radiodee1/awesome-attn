@@ -3,8 +3,9 @@ git submodule init
 cd OpenNMT-py
 #pip install -e .
 python setup.py install
+cd ..
 
-pip install -r requirements.opt.txt
+pip install -r requirements.amd64.txt
 
 cd ..
 mkdir raw
