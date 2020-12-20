@@ -1,15 +1,32 @@
 ## Where the samples will be written
 save_data: data/
 ## Where the vocab(s) will be written
-src_vocab: data/vocab.src
-tgt_vocab: data/vocab.tgt
+src_vocab: data/bpe/vocab.src
+share_vocab: True
+#tgt_vocab: data/vocab.tgt
 # Prevent overwriting existing files in the folder
 overwrite: False
 
+        
+        
+tgt_subword_model: data/bpe/bpe-codes.tgt
+src_subword_model: data/bpe/bpe-codes.src 
+
+# Number of candidates for SentencePiece sampling
+#subword_nbest: 20
+# Smoothing parameter for SentencePiece sampling
+#subword_alpha: 0.1
+# Specific arguments for pyonmttok
+#src_onmttok_kwargs: "{'tokenizer':'sentencepiece' , 'mode': 'none', 'spacer_annotate': True}"
+#tgt_onmttok_kwargs: "{'tokenizer':'sentencepiece' , 'mode': 'none', 'spacer_annotate': True}"
+
+
 data:
     corpus_1:
-        path_src: data/train.from
-        path_tgt: data/train.to
+        path_src: data/bpe/train.src
+        path_tgt: data/bpe/train.tgt
+        weight: 1
+        transforms: ['bpe']
 
 
 save_model: data/transformer_simple.pt
