@@ -5,15 +5,15 @@ overwrite: False
 
         
         
-tgt_subword_model: data/bpe/bpe-codes.tgt
-src_subword_model: data/bpe/bpe-codes.src 
+#tgt_subword_model: data/bpe/bpe-codes.tgt
+#src_subword_model: data/bpe/bpe-codes.src 
 
 data:
     corpus_1:
         path_src: data/bpe/train.src
         path_tgt: data/bpe/train.tgt
         weight: 1
-        transforms: ['bpe']
+        #transforms: ['bpe']
 
 
 save_model: data/transformer_movie_chat
