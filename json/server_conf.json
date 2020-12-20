@@ -1,5 +1,5 @@
 {
-    "models_root": "../data",
+    "models_root": "data",
     "models": [
         {   
             "id": 100,
