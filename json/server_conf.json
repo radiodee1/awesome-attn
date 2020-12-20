@@ -1,9 +1,9 @@
 {
-    "models_root": "../raw",
+    "models_root": "../data",
     "models": [
         {   
             "id": 100,
-            "model": "sum_transformer_model_acc_57.25_ppl_9.22_e16.pt",
+            "model": "transformer_movie_chat_step_5.pt",
             "timeout": 600,
             "on_timeout": "to_cpu",
             "load": true,
