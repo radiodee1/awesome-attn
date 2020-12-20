@@ -45,7 +45,7 @@ attention_dropout: [0.1]
 #####################
 
 # One Gpu
-save_checkpoint_steps: 5 #100
+save_checkpoint_steps: 2 #100
 keep_checkpoint: 10
 seed: 3435
 warmup_steps: 8000
