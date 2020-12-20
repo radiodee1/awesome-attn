@@ -1,25 +1,12 @@
-## Where the samples will be written
 save_data: data/
-## Where the vocab(s) will be written
 src_vocab: data/bpe/vocab.src
 share_vocab: True
-#tgt_vocab: data/vocab.tgt
-# Prevent overwriting existing files in the folder
 overwrite: False
 
         
         
 tgt_subword_model: data/bpe/bpe-codes.tgt
 src_subword_model: data/bpe/bpe-codes.src 
-
-# Number of candidates for SentencePiece sampling
-#subword_nbest: 20
-# Smoothing parameter for SentencePiece sampling
-#subword_alpha: 0.1
-# Specific arguments for pyonmttok
-#src_onmttok_kwargs: "{'tokenizer':'sentencepiece' , 'mode': 'none', 'spacer_annotate': True}"
-#tgt_onmttok_kwargs: "{'tokenizer':'sentencepiece' , 'mode': 'none', 'spacer_annotate': True}"
-
 
 data:
     corpus_1:
@@ -29,7 +16,7 @@ data:
         transforms: ['bpe']
 
 
-save_model: data/transformer_simple.pt
+save_model: data/transformer_movie_chat
 valid_steps: 0 #10000
 train_steps: 200000
 
@@ -45,7 +32,7 @@ attention_dropout: [0.1]
 #####################
 
 # One Gpu
-save_checkpoint_steps: 2 #100
+save_checkpoint_steps: 100
 keep_checkpoint: 10
 seed: 3435
 warmup_steps: 8000
