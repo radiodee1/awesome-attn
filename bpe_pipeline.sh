@@ -86,13 +86,13 @@ fi
 if [[ "$BPE" == *"tgt"* ]]; then
     echo "BPE on target"
     # Here we could use more  monolingual data
-    $ONMT/tools/learn_bpe.py -s $BPE_SRC_OPS < $TRAIN_TGT > $OUT/bpe-codes.tgt
+    #$ONMT/tools/learn_bpe.py -s $BPE_SRC_OPS < $TRAIN_TGT > $OUT/bpe-codes.tgt
 
-    $ONMT/tools/apply_bpe.py -c $OUT/bpe-codes.tgt <  $TRAIN_TGT > $OUT/train.tgt
-    $ONMT/tools/apply_bpe.py -c $OUT/bpe-codes.tgt <  $VALID_TGT > $OUT/valid.tgt
+    $ONMT/tools/apply_bpe.py -c $OUT/bpe-codes.src <  $TRAIN_TGT > $OUT/train.tgt
+    $ONMT/tools/apply_bpe.py -c $OUT/bpe-codes.src <  $VALID_TGT > $OUT/valid.tgt
     
     # Comment-out next line???
-    $ONMT/tools/apply_bpe.py -c $OUT/bpe-codes.tgt <  $TEST_TGT > $OUT/test.tgt
+    $ONMT/tools/apply_bpe.py -c $OUT/bpe-codes.src <  $TEST_TGT > $OUT/test.tgt
     # We dont touch the test References, No BPE on them!
     #ln -sf $TEST_TGT $OUT/data/test.tgt
 else
