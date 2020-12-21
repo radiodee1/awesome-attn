@@ -27,7 +27,7 @@ try:
     print('-----')
     print(response)
     print('-----')
-    tokenizer = pyonmttok.Tokenizer("conservative", bpe_model_path="./data/bpe-model-32k",  joiner_annotate=True, joiner_new=True)
+    tokenizer = pyonmttok.Tokenizer("conservative", bpe_model_path="./data/bpe/bpe-model-32k",  joiner_annotate=True, joiner_new=True)
 
     response = tokenizer.detokenize(response)
 
@@ -40,13 +40,13 @@ except:
 #'''
 ########################
 
-tokenizer_in = pyonmttok.Tokenizer("conservative", bpe_model_path="./data/bpe-model-32k", joiner_annotate=True, joiner_new=True)
+tokenizer_in = pyonmttok.Tokenizer("conservative", bpe_model_path="./data/bpe/bpe-model-32k", joiner_annotate=True, joiner_new=True)
 print('-----')
-hello = "Hello World!"
+hello = "hello world!"
 print(hello)
 hello_tokens, _ = tokenizer_in.tokenize(hello)
 print(hello_tokens)
-tokenizer_out = pyonmttok.Tokenizer("conservative") #, bpe_model_path="./data/bpe-model-32k", joiner_annotate=True, joiner_new=True)
+tokenizer_out = pyonmttok.Tokenizer("conservative", bpe_model_path="./data/bpe/bpe-model-32k", joiner_annotate=True, joiner_new=True)
 print('-----')
 hello_tokens = tokenizer_out.detokenize(hello_tokens)
 
