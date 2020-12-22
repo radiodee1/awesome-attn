@@ -3,10 +3,6 @@ src_vocab: data/bpe/vocab.src
 share_vocab: True
 overwrite: False
 
-        
-        
-#tgt_subword_model: data/bpe/bpe-codes.tgt
-#src_subword_model: data/bpe/bpe-codes.src 
 
 data:
     corpus_1:
