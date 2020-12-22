@@ -10,34 +10,45 @@ HOST="127.0.0.1"
 PORT=5000
 URL_ROOT="/OpenNMT-py"
 
+def client_request(q_str, detokenize=False, to_screen=False):
 
-query_1 = '[{"src": "this is a test for model 100", "id": 100}]' ## must be string!!
-headers_1 = {"Content-Type": "application/json"}               ## must be dictionary!!
-try:
+
+    query_1 = '[{"src":"' +  q_str + '", "id": 100}]'              ## must be string!!
+    headers_1 = {"Content-Type": "application/json"}               ## must be dictionary!!
+    
     response = requests.post('http://'+ HOST + ':' + str(PORT) + URL_ROOT + '/translate', headers=headers_1,  data=query_1)
+    if to_screen:
+        print(response)
+        print(response.json())
+        print('-----')
 
-    print(response)
-    print(response.json())
-    print('-----')
     response = response.json()[0][0]['tgt']
-    print(response)
-    print('-----')
+    
+    if to_screen:
+        print(response)
+        print('-----')
     response = response.split(' ')
-    print(len(response), 'length')
-    print('-----')
-    print(response)
-    print('-----')
-    tokenizer = pyonmttok.Tokenizer("conservative", bpe_model_path="./data/bpe/bpe-model-32k",  joiner_annotate=True, joiner_new=True)
+    if to_screen:
+        print(len(response), 'length')
+        print('-----')
+        print(response)
+        print('-----')
 
-    response = tokenizer.detokenize(response)
+    if detokenize:
+        tokenizer = pyonmttok.Tokenizer(
+                "conservative", 
+                bpe_model_path="./data/bpe/bpe-model-32k",  
+                joiner_annotate=True, 
+                joiner_new=True
+                )
 
-    print(response)
+        response = tokenizer.detokenize(response)
 
-except:
-    print('no server running?')
-    response = ''
+    if to_screen:
+        print(response)
 
-#'''
+    return response
+
 ########################
 
 tokenizer_in = pyonmttok.Tokenizer("conservative", bpe_model_path="./data/bpe/bpe-model-32k", joiner_annotate=True, joiner_new=True)
@@ -51,5 +62,5 @@ print('-----')
 hello_tokens = tokenizer_out.detokenize(hello_tokens)
 
 print(hello_tokens)
-#'''
 
+client_request('hello there', to_screen=True)
