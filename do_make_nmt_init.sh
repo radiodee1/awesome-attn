@@ -7,13 +7,13 @@ python setup.py install
 pip install -r requirements.opt.txt
 cd ..
 
-cd Tokenizer
-git submodule update --init
-mkdir build
-cd build
-cmake ..
-make
-cd ../..
+#cd Tokenizer
+#git submodule update --init
+#mkdir build
+#cd build
+#cmake ..
+#make
+#cd ../..
 
 pip install -r requirements.amd64.txt
 
