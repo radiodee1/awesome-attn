@@ -51,16 +51,31 @@ def client_request(q_str, detokenize=False, to_screen=False):
 
 ########################
 
-tokenizer_in = pyonmttok.Tokenizer("conservative", bpe_model_path="./data/bpe/bpe-model-32k", joiner_annotate=True, joiner_new=True)
-print('-----')
-hello = "hello world!"
-print(hello)
-hello_tokens, _ = tokenizer_in.tokenize(hello)
-print(hello_tokens)
-tokenizer_out = pyonmttok.Tokenizer("conservative", bpe_model_path="./data/bpe/bpe-model-32k", joiner_annotate=True, joiner_new=True)
-print('-----')
-hello_tokens = tokenizer_out.detokenize(hello_tokens)
+def detokenize_example():
+    tokenizer_in = pyonmttok.Tokenizer(
+            "conservative", 
+            bpe_model_path="./data/bpe/bpe-model-32k", 
+            joiner_annotate=True, 
+            joiner_new=True
+            )
+    print('-----')
+    hello = "hello world!"
+    print(hello)
+    hello_tokens, _ = tokenizer_in.tokenize(hello)
+    print(hello_tokens)
+    tokenizer_out = pyonmttok.Tokenizer(
+            "conservative", 
+            bpe_model_path="./data/bpe/bpe-model-32k", 
+            joiner_annotate=True, 
+            joiner_new=True
+            )
+    print('-----')
+    hello_tokens = tokenizer_out.detokenize(hello_tokens)
 
-print(hello_tokens)
+    print(hello_tokens)
 
-client_request('hello there', to_screen=True)
+
+if __name__ == '__main__':
+
+    client_request('hello there', detokenize=True, to_screen=True)
+    detokenize_example()
