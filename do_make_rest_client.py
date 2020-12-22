@@ -16,7 +16,11 @@ def client_request(q_str, detokenize=False, to_screen=False):
     query_1 = '[{"src":"' +  q_str + '", "id": 100}]'              ## must be string!!
     headers_1 = {"Content-Type": "application/json"}               ## must be dictionary!!
     
-    response = requests.post('http://'+ HOST + ':' + str(PORT) + URL_ROOT + '/translate', headers=headers_1,  data=query_1)
+    response = requests.post(
+            'http://'+ HOST + ':' + str(PORT) + URL_ROOT + '/translate', 
+            headers=headers_1,  
+            data=query_1)
+
     if to_screen:
         print(response)
         print(response.json())
