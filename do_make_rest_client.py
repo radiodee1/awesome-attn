@@ -83,3 +83,8 @@ if __name__ == '__main__':
 
     client_request('hello there', detokenize=True, to_screen=True)
     detokenize_example()
+
+    if True:
+        while True:
+            i = input('> ')
+            client_request(i, detokenize=True, to_screen=True)
