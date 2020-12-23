@@ -7,9 +7,6 @@ print('make learner')
 tokenizer = pyonmttok.Tokenizer("aggressive", joiner_annotate=True, segment_numbers=True)
 learner = pyonmttok.BPELearner(tokenizer=tokenizer, symbols=32000)
 
-# SentencePiece can learn from raw sentences so a tokenizer in not required.
-#learner = pyonmttok.SentencePieceLearner(vocab_size=32000, character_coverage=0.98)
-
 print('ingest train')
 learner.ingest_file("./data/train.from")
 learner.ingest_file("./data/train.to")
