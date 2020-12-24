@@ -16,7 +16,7 @@ data:
 
 
 save_model: data/transformer_movie_chat
-valid_steps: 50 #10000
+valid_steps: 100 #10000
 train_steps: 200000
 
 # Optimization
