@@ -5,7 +5,10 @@ import os
 import sys
 import random
 import xml.etree.ElementTree as ET
-from tokenize_weak import format
+#from tokenize_weak import format
+
+def format(input):
+    return input.lower()
 
 hparams = {
 
@@ -20,7 +23,8 @@ hparams = {
     'hist_ending': 'hist',
     'babi_name':'babi',
     'eol': 'eol',
-    'unk': 'unk'
+    'unk': 'unk',
+    'sol': 'sol'
 }
 
 xml_list = []
@@ -111,7 +115,7 @@ if __name__ == '__main__':
     parser.add_argument('--autoencode', help='setup files for autoencode operation. Set as percentage.')
     parser.add_argument('--stagger', help='stagger input for P.O.S.-style training.', action='store_true')
     parser.add_argument('--stagger-predict-word', help='stagger but predict only one word.', action='store_true')
-    parser.add_argument('--eol', help='add eol token', action='store_true')
+    parser.add_argument('--eol', help='add eol and sol tokens.', action='store_true')
     parser.add_argument('--xml-file', help='sentences.xml file to use.')
     parser.add_argument('--from-mnli', help='after mnli is done', action='store_true')
     parser.add_argument('--to-mnli', help='format file for later use with mnli classifier.', action='store_true')
@@ -280,7 +284,7 @@ if __name__ == '__main__':
         #arg_processed = False
         #arg_babi_for_gpt2 = True
         #arg_pairs = True
-        #arg_eol = True
+        arg_eol = True
         #arg_stagger = True
         #arg_question = 'eol'
         #arg_filename = os.path.abspath(arg_filename)
@@ -440,10 +444,10 @@ if __name__ == '__main__':
                         line[0], line[1] = move_order(line[0], line[1])
 
                     if arg_eol and len(line[0]) > 1:
-                        line[0] += ' ' + hparams['eol']
+                        line[0] = hparams['sol'] + ' ' +  line[0] + ' ' + hparams['eol']
 
                     if arg_eol and len(line[1]) > 1:
-                        line[1] += ' ' + hparams['eol']
+                        line[1] = hparams['sol'] + ' ' +  line[1] + ' ' + hparams['eol']
 
                     if not arg_stagger and arg_classifier != "MRPC" and arg_classifier != "MNLI" and not arg_gpt2:
 
