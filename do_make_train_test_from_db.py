@@ -7,7 +7,7 @@ import os
 import argparse
 import random
 import re
-import tokenize_weak
+#import tokenize_weak
 import sys
 #from settings import hparams
 #import core.tokenizer as ct
@@ -76,6 +76,9 @@ choices = [
     'i agree'
 ]
 
+def format(input):
+    return input.lower()
+
 parser = argparse.ArgumentParser(description='Make text files.')
 parser.add_argument('--basefile', metavar='FILE', type=str, help='Base database file name')
 parser.add_argument('--babi', help='save triplets in stead of pairs', action='store_true')
@@ -138,7 +141,7 @@ tgt_ending = hparams['tgt_ending']
 question_ending = hparams['question_ending']
 
 def format(s, split_phrases=False, add_sol_eol=False, add_eol_only=False, only_one_phrase=False):
-    z = tokenize_weak.format(s)
+    z = format(s)
     if z == None or z.strip() == '':
 
         #z = ' hello '
