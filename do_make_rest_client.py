@@ -20,6 +20,10 @@ def client_request(q_str, detokenize=False, to_screen=False):
                 joiner_new=True
                 )
         q_str, _ = tokenizer.tokenize(q_str)
+        q_str = ' '.join(q_str)
+
+    if to_screen:
+        print(q_str)
 
     query_1 = '[{"src":"' +  q_str + '", "id": 100}]'              ## must be string!!
     headers_1 = {"Content-Type": "application/json"}               ## must be dictionary!!
