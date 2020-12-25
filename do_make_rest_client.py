@@ -21,6 +21,7 @@ def client_request(q_str, detokenize=False, to_screen=False):
                 )
         q_str, _ = tokenizer.tokenize(q_str)
         q_str = ' '.join(q_str)
+        q_str = q_str.encode('utf-8')
 
     if to_screen:
         print(q_str)
