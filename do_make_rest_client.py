@@ -17,7 +17,6 @@ def client_request(q_str, detokenize=False, to_screen=False):
                 "conservative", 
                 bpe_model_path="./data/bpe/bpe-model-32k",  
                 joiner_annotate=True, 
-                #joiner_new=True
                 )
         q_str, _ = tokenizer.tokenize(q_str)
         q_str = ' '.join(q_str)
