@@ -115,6 +115,7 @@ if __name__ == '__main__':
     parser.add_argument('--autoencode', help='setup files for autoencode operation. Set as percentage.')
     parser.add_argument('--stagger', help='stagger input for P.O.S.-style training.', action='store_true')
     parser.add_argument('--stagger-predict-word', help='stagger but predict only one word.', action='store_true')
+    parser.add_argument('--sol', help='add eol and sol tokens.', action='store_true')
     parser.add_argument('--eol', help='add eol and sol tokens.', action='store_true')
     parser.add_argument('--xml-file', help='sentences.xml file to use.')
     parser.add_argument('--from-mnli', help='after mnli is done', action='store_true')
@@ -147,6 +148,7 @@ if __name__ == '__main__':
     arg_autoencode = False
     arg_stagger = False
     arg_eol = False
+    arg_sol = False
     arg_xml = False
 
     arg_classifier = ""
@@ -221,6 +223,9 @@ if __name__ == '__main__':
     if args['eol'] == True:
         arg_eol = True
 
+    if args['sol'] == True:
+        arg_sol = True
+
     if args['fours'] == True:
         arg_triplets = True
         arg_fours = True
@@ -284,7 +289,7 @@ if __name__ == '__main__':
         #arg_processed = False
         #arg_babi_for_gpt2 = True
         #arg_pairs = True
-        arg_eol = True
+        #arg_eol = True # <---
         #arg_stagger = True
         #arg_question = 'eol'
         #arg_filename = os.path.abspath(arg_filename)
@@ -444,10 +449,16 @@ if __name__ == '__main__':
                         line[0], line[1] = move_order(line[0], line[1])
 
                     if arg_eol and len(line[0]) > 1:
-                        line[0] = hparams['sol'] + ' ' +  line[0] + ' ' + hparams['eol']
+                        line[0] =   line[0] + ' ' + hparams['eol']
 
                     if arg_eol and len(line[1]) > 1:
-                        line[1] = hparams['sol'] + ' ' +  line[1] + ' ' + hparams['eol']
+                        line[1] =   line[1] + ' ' + hparams['eol']
+
+                    if arg_sol and len(line[0]) > 1:
+                        line[0] = hparams['sol'] + ' ' +  line[0] #+ ' ' + hparams['eol']
+
+                    if arg_sol and len(line[1]) > 1:
+                        line[1] = hparams['sol'] + ' ' +  line[1] #+ ' ' + hparams['eol']
 
                     if not arg_stagger and arg_classifier != "MRPC" and arg_classifier != "MNLI" and not arg_gpt2:
 
