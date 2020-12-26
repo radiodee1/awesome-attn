@@ -1,10 +1,10 @@
-Hello.
-What is your name?
-What time is it?
-What do you do?
-What is your favorite color?
-Do you like red?
-Do you like blue?
-What is your favorite candy?
-Do you like ice cream?
-Good bye.
+hello.
+what is your name?
+what time is it?
+what do you do?
+what is your favorite color?
+do you like red?
+do you like blue?
+what is your favorite candy?
+do you like ice cream?
+good bye.
