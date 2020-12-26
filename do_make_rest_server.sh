@@ -17,5 +17,18 @@ if [[ "1" -eq "$#" && "$1" != "best" ]] ; then
 
 fi
 
+if [[ "1" -eq "$#" && -f $1 ]] ; then
+    echo 'one input'
+    echo $1
+    
+    echo "last 3 chars ${1: -3}"
+    
+
+    if [[  ${1: -3} == ".pt" ]] ; then
+        rm data/transformer_movie_chat_step_best.pt
+        cp $1 data/transformer_movie_chat_step_best.pt
+    fi
+
+fi
 
 onmt_server --ip $IP --port $PORT --url_root $URL_ROOT --config $CONFIG
