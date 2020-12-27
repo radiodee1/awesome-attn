@@ -55,7 +55,7 @@ def string_from_date_info(y, month, day, h = 0, m = 0):
             day -= 1
             num -= 1
             continue
-        print(num)
+        #print(num)
         num -= 1
         break
     time = now.strftime("%I:%M %p")
