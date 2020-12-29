@@ -11,6 +11,10 @@ print('ingest train')
 learner.ingest_file("./data/train.from")
 learner.ingest_file("./data/train.to")
 
+if os.path.isfile("./data/extra.src") and os.path.isfile("./data/extra.tgt"):
+    learner.ingest_file("./data/extra.src")
+    learner.ingest_file("./data/extra.tgt")
+
 if not os.path.isdir('./data/bpe/'): os.mkdir('./data/bpe/')
 
 print('learner learn')
@@ -25,3 +29,10 @@ token.tokenize_file("./data/valid.to","./data/bpe/valid.tgt")
 print("tokenize test")
 token.tokenize_file("./data/test.from","./data/bpe/test.src")
 token.tokenize_file("./data/test.to","./data/bpe/test.tgt")
+
+print('check for extra corpus')
+if os.path.isfile("./data/extra.src"):
+    token.tokenize_file("./data/extra.src","./data/bpe/extra.src")
+if os.path.isfile("./data/extra.tgt"):
+    token.tokenize_file("./data/extra.tgt","./data/bpe/extra.tgt")
+

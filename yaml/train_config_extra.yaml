@@ -1,0 +1,74 @@
+save_data: data/
+src_vocab: data/bpe/vocab.src
+share_vocab: True
+overwrite: False
+
+
+data:
+    corpus_1:
+        path_src: data/bpe/train.src
+        path_tgt: data/bpe/train.tgt
+        weight: 19
+        #transforms: ['bpe']
+    corpus_2:
+        path_src: data/bpe/extra.src
+        path_tgt: data/bpe/extra.tgt
+        weight: 1
+    valid:
+        path_src: data/bpe/valid.src
+        path_tgt: data/bpe/valid.tgt
+
+
+save_model: data/transformer_movie_chat
+valid_steps: 100 #10000
+train_steps: 200000
+
+# Optimization
+model_dtype: "fp32"
+
+# Model
+enc_layers: 6
+dec_layers: 6
+dropout_steps: [0]
+attention_dropout: [0.1]
+
+#####################
+
+# One Gpu
+save_checkpoint_steps:  100
+keep_checkpoint: 10
+seed: 3435
+warmup_steps: 8000
+report_every: 100
+
+decoder_type: transformer
+encoder_type: transformer
+word_vec_size: 512
+rnn_size: 512
+layers: 6
+transformer_ff: 2048
+heads: 8
+
+accum_count: 8
+optim: adam
+adam_beta1: 0.9
+adam_beta2: 0.998
+decay_method: noam
+learning_rate: 2.0
+max_grad_norm: 0.0
+
+batch_size: 2048 # 3072 # 2048 #4096
+batch_type: tokens
+normalization: tokens
+dropout: 0.1
+label_smoothing: 0.1
+
+max_generator_batches: 2
+
+param_init: 0.0
+param_init_glorot: 'true'
+position_encoding: 'true'
+
+world_size: 1
+gpu_ranks:
+- 0
