@@ -3,6 +3,7 @@
 import argparse
 import os
 import datetime
+import random
 
 print("python3.6")
 
@@ -69,16 +70,19 @@ numbers = [
         ]
 
 def pairs_from_strings(ques, ans_prefix, ans_word, ans_suffix):
-
-    z = str(str(ans_prefix) + ' ' + str(ans_word) + ' ' + str(ans_suffix))
+    sp1 = ' '
+    sp2 = ' '
+    if len(ans_prefix) == 0: sp1 = ''
+    if len(ans_suffix) <= 1: sp2 = ''
+    z = str(str(ans_prefix) + sp1 + str(ans_word) + sp2 + str(ans_suffix))
     #print(z, "z")
     x = ques, z
-    return z
+    return x
     
 def output_from_list(out_list, ans_list, q, a_prefix, a_suffix):
     for i in ans_list:
-        print(i)
-        z =  [pairs_from_strings(q, a_prefix, i, a_suffix) ]
+        #print(i)
+        z =  [ pairs_from_strings(q, a_prefix, i, a_suffix) ]
         out_list += z
     pass
 
@@ -101,10 +105,37 @@ def string_from_date_info(y, month, day, h = 0, m = 0):
 
 if __name__  == '__main__' :
     #print(food)
+    parser = argparse.ArgumentParser(description='Make training file.')
+    parser.add_argument('--length', help='Base file from movie corpus for db output', default=0)
+    parser.add_argument('--test-on-screen', help='print some values to the screen.', action='store_true')
+    parser.add_argument('--file-pairs', help='shift and repeat movie data', action='store_true')
+    parser.add_argument('--tab-file',  help='Base file from movie corpus for db output', action='store_true')
+    
+    args = parser.parse_args()
+    arg_length = 500
+    arg_to_screen = False
+    arg_tab = True
+    arg_filename = 'data/extra'
+
+    if args.length > 0:
+        arg_length = args.length
+
+    if args.file_pairs:
+        arg_tab = False
+
+    if args.tab_file:
+        arg_tab = True
+
+    if args.tab_file == args.file_pairs:
+        print("only one kind of output allowed.")
+        exit()
+
+
     now = datetime.datetime.now()
     time = now.strftime("%I:%M %p")
     date = now.strftime("%B %d, %Y")
-    print(time+ ", " + date )
+    if arg_to_screen:
+        print(time+ ", " + date )
 
     #print(string_from_date_info(2020, 10, 12))
 
@@ -115,7 +146,8 @@ if __name__  == '__main__' :
                     for m in [0, 30, 45, 61]: # minutes
                         times += [string_from_date_info(i, j, k, h=l, m=m)]
 
-    print("times generated", len(times))
+    if arg_to_screen:
+        print("times generated", len(times))
     #print(times)
 
     txt_list = [
@@ -129,5 +161,36 @@ if __name__  == '__main__' :
 
     out_list = []
     for i in txt_list:
-        output_from_list(out_list, i[0], i[1], i[2], i[3]  )
-    print(out_list)
+        out = []
+        output_from_list(out, i[0], i[1], i[2], i[3]  )
+        out_list.append(out)
+
+    out_random = []
+    num_list = 0
+    while len(out_random) <= 500:
+        
+        n = num_list % (len(txt_list) + 0)
+        #print( n )
+        out_random += [random.choice(out_list[n])]
+        num_list += 1
+    
+    if arg_to_screen:
+        print (out_random)
+    
+    if arg_tab:
+        arg_filename = arg_filename + '.tab.txt'
+        z = open(arg_filename, 'w')
+        for i in out_random:
+            z.write(i[0] + '\t' + i[1] + '\n')
+        z.close()
+        pass
+    else:
+        y = open(arg_filename + '.src','w')
+        z = open(arg_filename + '.tgt', 'w')
+        for i in out_random:
+            y.write(i[0] + '\n')
+            z.write(i[1] + '\n')
+        y.close()
+        z.close()
+        pass
+
