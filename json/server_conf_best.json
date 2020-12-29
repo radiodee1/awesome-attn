@@ -9,7 +9,8 @@
             "load": true,
             "opt": {
                 "gpu": 0,
-                "beam_size": 5 
+                "beam_size": 5,
+                "replace_unk" : true
             }  
         }
     ]   

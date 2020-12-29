@@ -163,6 +163,8 @@ if __name__ == '__main__':
     arg_filter_gpt2 = False
     filter_num = 0
 
+    arg_reverse_order = False
+
     arg_mode = hparams['train_name']
 
     arg_destination_context = ''
@@ -459,6 +461,11 @@ if __name__ == '__main__':
 
                     if arg_sol and len(line[1]) > 1:
                         line[1] = hparams['sol'] + ' ' +  line[1] #+ ' ' + hparams['eol']
+
+                    if arg_reverse_order == True:
+                        line_temp = line[1]
+                        line[1] = line[0]
+                        line[0] = line_temp
 
                     if not arg_stagger and arg_classifier != "MRPC" and arg_classifier != "MNLI" and not arg_gpt2:
 
