@@ -7,6 +7,11 @@ if [[ "$#" == "1" && -f "$1"  ]] ; then
     exit
 fi
 
+if [[ "$#" == "1" && ! -f "$1" ]] ; then
+    echo "$1 is not a file."
+    exit
+fi
+
 
 onmt_train --config yaml/train_config.yaml
 
