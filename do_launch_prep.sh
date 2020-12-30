@@ -10,6 +10,6 @@ if [[ -f "$CORPUS_EXTRA" ]] ; then
 fi
 
 
-onmt_build_vocab --config $CONFIG -size 8000 #-n_sample 80000 
+onmt_build_vocab --config $CONFIG -bpe_model_path ./data/bpe/bpe-model-32k  -size 8000 #-n_sample 80000 
 
 
