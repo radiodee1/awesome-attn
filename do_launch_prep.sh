@@ -1,4 +1,4 @@
-./bpe_pyonmttok.py
+./pyonmttok_mod.py
 
 CONFIG="yaml/train_config.yaml"
 CONFIG_EXTRA="yaml/train_config_extra.yaml"
