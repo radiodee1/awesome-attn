@@ -126,6 +126,8 @@ if __name__ == '__main__':
     parser.add_argument('--babi-for-gpt2', help='train gpt2 for training with babi synthetic data set.', action='store_true')
     parser.add_argument('--filter-possessive', help='filter only possessive sentences for gpt2.', action='store_true')
     parser.add_argument('--force', help='force normal file creation -- disable repeat detection.', action='store_true')
+    parser.add_argument('--reverse', help='force reverse output.', action='store_true')
+
 
     args = parser.parse_args()
     args = vars(args)
@@ -296,6 +298,9 @@ if __name__ == '__main__':
         #arg_question = 'eol'
         #arg_filename = os.path.abspath(arg_filename)
         pass
+
+    if args['reverse']:
+        arg_reverse_order = True
 
     #########
 
