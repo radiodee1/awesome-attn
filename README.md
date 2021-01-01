@@ -15,4 +15,4 @@ workspace for attention experiments
 Then:
 
 * `./do_launch_prep.sh ` - this sets up bpe files.
-* `./do_launch_train.sh ` - this trains a model.
+* `./do_launch_train.sh ` - this trains a model. As a first parameter you can use the name of a checkpoint that you want to start with.
