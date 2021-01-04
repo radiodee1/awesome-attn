@@ -9,7 +9,7 @@ import datetime
 
 HOST="127.0.0.1"
 PORT=5000
-URL_ROOT="/OpenNMT-py"
+URL_ROOT="/"  #"/OpenNMT-py"
 
 def client_request(q_str, detokenize=False, to_screen=True):
 
