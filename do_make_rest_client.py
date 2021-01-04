@@ -5,12 +5,13 @@ import os
 import sys
 import argparse
 import pyonmttok
+import datetime
 
 HOST="127.0.0.1"
 PORT=5000
 URL_ROOT="/OpenNMT-py"
 
-def client_request(q_str, detokenize=False, to_screen=False):
+def client_request(q_str, detokenize=False, to_screen=True):
 
     if True:
         tokenizer = pyonmttok.Tokenizer(
@@ -20,33 +21,48 @@ def client_request(q_str, detokenize=False, to_screen=False):
                 )
         q_str, _ = tokenizer.tokenize(q_str)
         q_str = ' '.join(q_str)
-        #q_str = q_str.encode('utf-8').decode('utf-8')
+        
+        now = datetime.datetime.now()
 
-    if to_screen:
-        print(q_str)
+        time = now.strftime("%I:%M %p")
+        date = now.strftime("%B %d, %Y")
 
-    query_1 = '[{"src":"' +  q_str + '", "id": 100}]'              ## must be string!!
+
+        time_str = "this is the time. " + time + ', ' + date
+        time_str, _ = tokenizer.tokenize(time_str)
+        time_str = ' '.join(time_str)
+
     headers_1 = {"Content-Type": "application/json"}               ## must be dictionary!!
+    query_1 = '[{"src":"' +  q_str + '" , "id": 100}]'              ## must be string!!
+    query_2 = '[{"src":"' +  q_str + '", "tgt_prefix": "true" , "tgt":  "' + time_str + '" ,   "id": 100}]'   ## must be string!!
     
+    print(query_2)
+
     response = requests.post(
             'http://'+ HOST + ':' + str(PORT) + URL_ROOT + '/translate', 
             headers=headers_1,  
-            data=query_1.encode('utf-8')
+            data=query_2.encode('utf-8')
             )
 
     if to_screen:
         print(response)
         print(response.json())
         print('-----')
+    try:
+        response = response.json()[0][0]['tgt']
+    except:
+        pass
 
-    response = response.json()[0][0]['tgt']
-    
     if to_screen:
         print(response)
         print('-----')
-    response = response.split(' ')
+    try:
+        response = response.split(' ')
+    except:
+        pass
+
     if to_screen:
-        print(len(response), 'length')
+        #print(len(response), 'length')
         print('-----')
         print(response)
         print('-----')
@@ -94,10 +110,10 @@ def detokenize_example():
 
 if __name__ == '__main__':
 
-    client_request('hello there', detokenize=True, to_screen=True)
+    client_request('hello there', detokenize=False, to_screen=True)
     detokenize_example()
 
     if True:
         while True:
             i = input('> ')
-            client_request(i, detokenize=True, to_screen=True)
+            client_request(i, detokenize=False, to_screen=True)

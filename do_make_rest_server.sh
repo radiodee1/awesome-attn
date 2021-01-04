@@ -31,4 +31,4 @@ if [[ "1" -eq "$#" && -f $1 ]] ; then
 
 fi
 
-onmt_server --ip $IP --port $PORT --url_root $URL_ROOT --config $CONFIG
+onmt_server --ip $IP --port $PORT --url_root $URL_ROOT --config $CONFIG 
