@@ -116,4 +116,4 @@ if __name__ == '__main__':
     if True:
         while True:
             i = input('> ')
-            client_request(i, detokenize=False, to_screen=True)
+            client_request(i, detokenize=True, to_screen=True)
