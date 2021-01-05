@@ -19,7 +19,7 @@ from onmt.utils.misc import tile, set_random_seed, report_matrix
 from onmt.utils.alignment import extract_alignment, build_align_pharaoh
 from onmt.modules.copy_generator import collapse_copy_scores
 from onmt.constants import ModelTask
-
+from translation import TranslationBuilder
 
 def build_translator(opt, report_score=True, logger=None, out_file=None):
     if out_file is None:
@@ -385,7 +385,7 @@ class Inference(object):
             shuffle=False,
         )
 
-        xlation_builder = onmt.translate.TranslationBuilder(
+        xlation_builder = TranslationBuilder(
             data,
             self.fields,
             self.n_best,

@@ -46,6 +46,8 @@ class TranslationBuilder(object):
         vocab = tgt_field.vocab
         tokens = []
 
+        print(pred, 'pred - bin/translation')
+
         for tok in pred:
             if tok < len(vocab):
                 tokens.append(vocab.itos[tok])
