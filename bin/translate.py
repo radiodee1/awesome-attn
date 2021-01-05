@@ -6,7 +6,8 @@ from itertools import islice, repeat
 
 from onmt.utils.logging import init_logger
 from onmt.utils.misc import split_corpus
-from onmt.translate.translator import build_translator
+#from onmt.translate.translator import build_translator
+from translator import build_translator
 
 import onmt.opts as opts
 from onmt.utils.parse import ArgumentParser
@@ -41,14 +42,14 @@ def translate(opt):
     ArgumentParser.validate_translate_opts(opt)
     logger = init_logger(opt.log_file)
 
-    print(opt.tgt)
+    #print(opt.tgt)
     if isinstance(opt.tgt, str):
         tgt_shards = split_xcorpus(opt.tgt, opt.shard_size)
         print(opt.tgt)
     else:
         tgt_shards = split_corpus(opt.tgt, opt.shard_size)
 
-    print(tgt_shards, 'tgt')
+    #print(tgt_shards, 'tgt')
     translator = build_translator(opt, logger=logger, report_score=True)
     src_shards = split_corpus(opt.src, opt.shard_size)
     #tgt_shards = split_xcorpus(tmp_tgt, opt.shard_size, default)
