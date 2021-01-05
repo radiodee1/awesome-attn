@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 from itertools import islice, repeat
+import os
 
 from onmt.utils.logging import init_logger
 from onmt.utils.misc import split_corpus
@@ -42,14 +43,14 @@ def translate(opt):
     ArgumentParser.validate_translate_opts(opt)
     logger = init_logger(opt.log_file)
 
-    #print(opt.tgt)
-    if isinstance(opt.tgt, str):
+    print("opt.tgt")
+    if isinstance(opt.tgt, str) and not os.path.isfile(opt.tgt):
         tgt_shards = split_xcorpus(opt.tgt, opt.shard_size)
-        print(opt.tgt)
+        #print(opt.tgt)
     else:
         tgt_shards = split_corpus(opt.tgt, opt.shard_size)
 
-    #print(tgt_shards, 'tgt')
+    print(tgt_shards, 'tgt')
     translator = build_translator(opt, logger=logger, report_score=True)
     src_shards = split_corpus(opt.src, opt.shard_size)
     #tgt_shards = split_xcorpus(tmp_tgt, opt.shard_size, default)
