@@ -387,6 +387,7 @@ class ServerModel(object):
 
         try:
             if self.ct2_model is not None:
+                print('ct2 model - bin/t_s')
                 self.translator = CTranslate2Translator(
                     self.ct2_model,
                     device="cuda" if self.opt.cuda else "cpu",
@@ -397,6 +398,7 @@ class ServerModel(object):
                     target_prefix=self.opt.tgt_prefix,
                     preload=preload)
             else:
+                print('not ct2 model - bin/t_s')
                 self.translator = build_translator(
                     self.opt, report_score=False,
                     out_file=codecs.open(os.devnull, "w", "utf-8"))
@@ -421,10 +423,6 @@ class ServerModel(object):
         """
 
         ### one output at a time ###
-
-        self.opt.tgt = inputs[0]['tgt']
-        self.opt.tgt_prefix = True
-        print(self.opt, 'opt')
 
         self.stop_unload_timer()
 
@@ -473,6 +471,8 @@ class ServerModel(object):
                 texts.append((tok, ref))
             tail_spaces.append(whitespaces_after)
 
+            print(ref, 'ref - bin/translation_server')
+
         empty_indices = []
         texts_to_translate, texts_ref = [], []
         for i, (tok, ref_tok) in enumerate(texts):
@@ -483,6 +483,7 @@ class ServerModel(object):
                 texts_ref.append(ref_tok)
         if any([item is None for item in texts_ref]):
             texts_ref = None
+            #print('make it NONE', 'bin/translation_server')
 
         scores = []
         predictions = []

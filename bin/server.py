@@ -150,7 +150,7 @@ def _get_parser():
 def main():
     parser = _get_parser()
     args = parser.parse_args()
-    print(args.config)
+    print(args.config, 'args.config bin/server')
     start(args.config, url_root=args.url_root, host=args.ip, port=args.port,
           debug=args.debug)
 

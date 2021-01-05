@@ -48,7 +48,7 @@ def build_translator(opt, report_score=True, logger=None, out_file=None):
             logger=logger,
         )
     else:
-        #print('translator NOT LM','bin/translator')
+        print('translator NOT LM','bin/translator')
         translator = Translator.from_opt(
             model,
             fields,

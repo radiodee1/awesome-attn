@@ -29,12 +29,13 @@ def client_request(q_str, detokenize=False, to_screen=True):
 
 
         time_str = "this is the time. " + time + ', ' + date
+        time_str = "i don't"
         time_str, _ = tokenizer.tokenize(time_str)
         time_str = ' '.join(time_str)
 
     headers_1 = {"Content-Type": "application/json"}               ## must be dictionary!!
     query_1 = '[{"src":"' +  q_str + '" , "id": 100}]'              ## must be string!!
-    query_2 = '[{"src":"' +  q_str + '", "tgt_prefix": "true" , "tgt":  "' + time_str + '" ,   "id": 100}]'   ## must be string!!
+    query_2 = '[{"src":"' +  q_str + '", "tgt_prefix": "true" , "ref":  "' + time_str + '" ,   "id": 100}]'   ## must be string!!
     
     print(query_2)
 
