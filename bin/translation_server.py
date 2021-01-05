@@ -22,8 +22,8 @@ from onmt.utils.misc import set_random_seed
 from onmt.utils.misc import check_model_config
 from onmt.utils.alignment import to_word_align
 from onmt.utils.parse import ArgumentParser
-from onmt.translate.translator import build_translator
-
+#from onmt.translate.translator import build_translator
+from translator import build_translator
 
 def critical(func):
     """Decorator for critical section (mutually exclusive code)"""
