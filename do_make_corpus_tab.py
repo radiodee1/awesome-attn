@@ -76,13 +76,16 @@ def pairs_from_strings(ques, ans_prefix, ans_word, ans_suffix):
     if len(ans_suffix) <= 1: sp2 = ''
     z = str(str(ans_prefix) + sp1 + str(ans_word) + sp2 + str(ans_suffix))
     #print(z, "z")
-    x = ques, z
+    x = [ques, z]
     return x
     
-def output_from_list(out_list, ans_list, q, a_prefix, a_suffix):
+def output_from_list(out_list, ans_list, q, a_prefix, a_suffix, pad_text=None):
     for i in ans_list:
         #print(i)
         z =  [ pairs_from_strings(q, a_prefix, i, a_suffix) ]
+        if pad_text is not None: # and isinstance(pad_text, str):
+            if len(pad_text) == 1: pad_text = [pad_text]
+            z[0][0] = random.choice(pad_text) + " " + z[0][0] + ' ' + z[0][1] + ' ' + z[0][0]
         out_list += z
     pass
 
@@ -110,21 +113,34 @@ if __name__  == '__main__' :
     parser.add_argument('--test-on-screen', help='print some values to the screen.', action='store_true')
     parser.add_argument('--file-pairs', help='shift and repeat movie data', action='store_true')
     parser.add_argument('--tab-file',  help='Base file from movie corpus for db output', action='store_true')
-    
+    parser.add_argument('--random', help='Randomize saved values.', action='store_true')
+    parser.add_argument('--large-context', help='Set large context', action='store_true')
+
     args = parser.parse_args()
     arg_length = 500
     arg_to_screen = False
     arg_tab = True
     arg_filename = 'data/extra'
+    arg_random = False
+    arg_ctx = False
 
-    if args.length > 0:
-        arg_length = args.length
+    if args.random:
+        arg_random = True
+
+    if args.test_on_screen:
+        arg_to_screen = True
+
+    if int(args.length) > 0:
+        arg_length = int(args.length)
 
     if args.file_pairs:
         arg_tab = False
 
     if args.tab_file:
         arg_tab = True
+
+    if args.large_context:
+        arg_ctx = True
 
     if args.tab_file == args.file_pairs:
         print("only one kind of output allowed.")
@@ -151,31 +167,62 @@ if __name__  == '__main__' :
     #print(times)
 
     txt_list = [
-                [names, 'what is your name?', 'my name is', '.'],
-                [places, 'where are you?', 'i am in', '.'],
-                [times, 'what time is it?', 'it is','.'],
-                [foods, 'what is your favorite food?', 'i like','.'],
-                [colors,'what is your favorite color?', '', 'is my favorite color.'],
-                [numbers, 'what is your favorite number?', 'my favorite number is', '.' ]
+                [names, 'what is your name?', 'my name is', '.', 'names'],
+                [places, 'where are you?', 'i am in', '.', 'places'],
+                [times, 'what time is it?', 'it is','.', 'times'],
+                [foods, 'what is your favorite food?', 'i like','.', 'foods'],
+                [colors,'what is your favorite color?', '', 'is my favorite color.', 'colors'],
+                [numbers, 'what is your favorite number?', 'my favorite number is', '.','numbers' ]
             ]
 
     out_list = []
     for i in txt_list:
         out = []
-        output_from_list(out, i[0], i[1], i[2], i[3]  )
+        ctx_list = None
+        ctx_list_long = None
+        if arg_ctx:
+            ctx_list_long = []
+            for _ in i[0]:
+                l = [ ii[4] for ii in txt_list if ii[4] is not i[4]]
+                ctx_list = []
+                for ll in l:
+                    ll = [ii for ii in txt_list if ii[4] == ll ][0]
+                    #print(ll[1:], 'll')
+                    output_from_list(ctx_list, [random.choice(ll[0])], ll[1], ll[2], ll[3]  )
+                    #print(ctx_list, 'ctx')
+                ctx_list = [' '.join(i) for i in ctx_list]
+                ctx_list = ' '.join(ctx_list)
+                ctx_list_long += [ctx_list]
+                #ctx_list = " ".join(ctx_list)
+            #print(ctx_list_long)
+            pass
+
+        #print("---")
+        #print(ctx_list)
+        output_from_list(out, i[0], i[1], i[2], i[3] , ctx_list_long )
         out_list.append(out)
+        #print(out_list[0], 'with context')
 
     out_random = []
     num_list = 0
-    while len(out_random) <= 500:
+    while len(out_random) < arg_length:
         
         n = num_list % (len(txt_list) + 0)
-        #print( n )
-        out_random += [random.choice(out_list[n])]
+
+        if arg_random:
+            n = random.randint(0, len(txt_list) - 1)
+
+        z = [random.choice(out_list[n])]
+        if arg_to_screen: print(z, 'z list')
+        out_random += z
         num_list += 1
-    
+
+    for i in range(len(out_random)):
+        pass
+
     if arg_to_screen:
-        print (out_random)
+        print()
+        print (out_random, 'out_random')
     
     if arg_tab:
         arg_filename = arg_filename + '.tab.txt'
