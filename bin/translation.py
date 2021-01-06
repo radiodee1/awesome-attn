@@ -46,7 +46,7 @@ class TranslationBuilder(object):
         vocab = tgt_field.vocab
         tokens = []
 
-        print(pred, 'pred - bin/translation')
+        print(pred, tgt_field, 'pred - bin/translation')
 
         for tok in pred:
             if tok < len(vocab):
@@ -96,10 +96,16 @@ class TranslationBuilder(object):
 
         translations = []
         for b in range(batch_size):
+
             if self._has_text_src:
                 src_vocab = self.data.src_vocabs[inds[b]] \
                     if self.data.src_vocabs else None
                 src_raw = self.data.examples[inds[b]].src[0]
+                if tgt is not None:
+                    tgt_tmp = self.data.examples[inds[b]].tgt[0][:-1]
+                    src_raw = tgt_tmp + self.data.examples[inds[b]].src[0]
+
+                    print(tgt_tmp, src_raw, 'bin/translation.py -- raw')
             else:
                 src_vocab = None
                 src_raw = None
@@ -115,6 +121,9 @@ class TranslationBuilder(object):
                     src[:, b] if src is not None else None,
                     src_vocab, src_raw,
                     tgt[1:, b] if tgt is not None else None, None)
+
+
+                print(gold_sent, pred_sents, 'gold_sent - bin/translation')
 
             translation = Translation(
                 src[:, b] if src is not None else None,
