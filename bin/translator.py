@@ -25,6 +25,11 @@ def build_translator(opt, report_score=True, logger=None, out_file=None):
     if out_file is None:
         out_file = codecs.open(opt.output, "w+", "utf-8")
 
+    #print(opt, 'bin/translator.py')
+    if opt.tgt is not None and False:
+        opt.src = opt.tgt[:-1] + opt.src
+        print(opt.src, 'src -- bin/translator.py')
+
     load_test_model = (
         onmt.decoders.ensemble.load_test_model
         if len(opt.models) > 1

@@ -334,6 +334,8 @@ class ServerModel(object):
             self.load(preload=True)
             self.stop_unload_timer()
 
+        #print(self.user_opt, self.opt, "different opts -- bin/t_s.py")
+
     def parse_opt(self, opt):
         """Parse the option set passed by the user using `onmt.opts`
 
@@ -383,11 +385,11 @@ class ServerModel(object):
         self.logger.info("Loading model %d" % self.model_id)
         timer.start()
 
-        print(self.opt, "self.opt")
+        #print(self.opt, "self.opt")
 
         try:
             if self.ct2_model is not None:
-                print('ct2 model - bin/t_s')
+                #print('ct2 model - bin/t_s')
                 self.translator = CTranslate2Translator(
                     self.ct2_model,
                     device="cuda" if self.opt.cuda else "cpu",
@@ -398,7 +400,7 @@ class ServerModel(object):
                     target_prefix=self.opt.tgt_prefix,
                     preload=preload)
             else:
-                print('not ct2 model - bin/t_s')
+                #print('not ct2 model - bin/t_s')
                 self.translator = build_translator(
                     self.opt, report_score=False,
                     out_file=codecs.open(os.devnull, "w", "utf-8"))
@@ -423,6 +425,8 @@ class ServerModel(object):
         """
 
         ### one output at a time ###
+        #print(inputs)
+
 
         self.stop_unload_timer()
 
@@ -462,6 +466,7 @@ class ServerModel(object):
                 whitespaces_after = match_after.group(0)
             head_spaces.append(whitespaces_before)
             # every segment becomes a dict for flexibility purposes
+
             seg_dict = self.maybe_preprocess(inp)
             all_preprocessed.append(seg_dict)
             for seg, ref in zip_longest(seg_dict["seg"], seg_dict["ref"]):
@@ -653,6 +658,9 @@ class ServerModel(object):
             sequence.pop("src")
             sequence["ref"] = [sequence.get('ref', None)]
             sequence["n_seg"] = 1
+            sequence["seg"] = [sequence['ref'][0] + ' ' + sequence['seg'][0]]
+            #print(sequence, 'seq -- bin/t_s.py')
+
         if self.preprocess_opt is not None:
             return self.preprocess(sequence)
         return sequence

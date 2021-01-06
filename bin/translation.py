@@ -46,7 +46,7 @@ class TranslationBuilder(object):
         vocab = tgt_field.vocab
         tokens = []
 
-        print(pred, tgt_field, 'pred - bin/translation')
+        #print(pred, tgt_field, 'pred - bin/translation')
 
         for tok in pred:
             if tok < len(vocab):
@@ -101,7 +101,7 @@ class TranslationBuilder(object):
                 src_vocab = self.data.src_vocabs[inds[b]] \
                     if self.data.src_vocabs else None
                 src_raw = self.data.examples[inds[b]].src[0]
-                if tgt is not None:
+                if tgt is not None and False:
                     tgt_tmp = self.data.examples[inds[b]].tgt[0][:-1]
                     src_raw = tgt_tmp + self.data.examples[inds[b]].src[0]
 
