@@ -468,6 +468,7 @@ class ServerModel(object):
             # every segment becomes a dict for flexibility purposes
 
             seg_dict = self.maybe_preprocess(inp)
+
             all_preprocessed.append(seg_dict)
             for seg, ref in zip_longest(seg_dict["seg"], seg_dict["ref"]):
                 tok = self.maybe_tokenize(seg)
@@ -476,7 +477,6 @@ class ServerModel(object):
                 texts.append((tok, ref))
             tail_spaces.append(whitespaces_after)
 
-            print(ref, 'ref - bin/translation_server')
 
         empty_indices = []
         texts_to_translate, texts_ref = [], []
@@ -492,6 +492,8 @@ class ServerModel(object):
 
         scores = []
         predictions = []
+
+        #print(texts_to_translate, 'texts - bin/translation_server')
 
         if len(texts_to_translate) > 0:
             try:
@@ -658,7 +660,8 @@ class ServerModel(object):
             sequence.pop("src")
             sequence["ref"] = [sequence.get('ref', None)]
             sequence["n_seg"] = 1
-            sequence["seg"] = [sequence['ref'][0] + ' ' + sequence['seg'][0]]
+            sequence["seg"] = [sequence['ref'][0][:-1] + ' ' + sequence['seg'][0]]
+            sequence['ref'] = []
             #print(sequence, 'seq -- bin/t_s.py')
 
         if self.preprocess_opt is not None:
