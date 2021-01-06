@@ -29,7 +29,7 @@ def client_request(q_str, detokenize=False, to_screen=True):
 
 
         time_str = "this is the time. " + time + ', ' + date + ' .'
-        time_str = "my name is jane."
+        time_str = ""
         time_str, _ = tokenizer.tokenize(time_str)
         time_str = ' '.join(time_str)
 
