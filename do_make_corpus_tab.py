@@ -7,6 +7,9 @@ import random
 
 print("python3.6")
 
+prefix_q = "question: "
+prefix_a = 'answer: '
+
 names = [
             'david',
             'edward',
@@ -85,7 +88,8 @@ def output_from_list(out_list, ans_list, q, a_prefix, a_suffix, pad_text=None):
         z =  [ pairs_from_strings(q, a_prefix, i, a_suffix) ]
         if pad_text is not None: # and isinstance(pad_text, str):
             if len(pad_text) == 1: pad_text = [pad_text]
-            z[0][0] = random.choice(pad_text) + " " + z[0][0] + ' ' + z[0][1] + ' ' + z[0][0]
+            z[0][1] = random.choice(pad_text) + \
+                      " " + z[0][0] + ' ' + z[0][1] + ' ' + prefix_q + z[0][0] + " " + prefix_a + z[0][1]
         out_list += z
     pass
 
@@ -115,6 +119,7 @@ if __name__  == '__main__' :
     parser.add_argument('--tab-file',  help='Base file from movie corpus for db output', action='store_true')
     parser.add_argument('--random', help='Randomize saved values.', action='store_true')
     parser.add_argument('--large-context', help='Set large context', action='store_true')
+    parser.add_argument('--no-prefix', help='Remove Q and A on data.', action='store_true')
 
     args = parser.parse_args()
     arg_length = 500
