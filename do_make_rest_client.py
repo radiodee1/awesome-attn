@@ -56,6 +56,7 @@ def client_request(q_str, detokenize=False, to_screen=True):
 
     if to_screen:
         print(response)
+        print(len(response))
         print('-----')
     try:
         response = response.split(' ')
