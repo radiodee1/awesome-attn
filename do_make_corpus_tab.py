@@ -128,6 +128,7 @@ if __name__  == '__main__' :
     arg_filename = 'data/extra'
     arg_random = False
     arg_ctx = False
+    arg_no_prefix = False
 
     if args.random:
         arg_random = True
@@ -151,6 +152,10 @@ if __name__  == '__main__' :
         print("only one kind of output allowed.")
         exit()
 
+    if args.no_prefix:
+        arg_no_prefix = True
+        prefix_a = ''
+        prefix_q = ''
 
     now = datetime.datetime.now()
     time = now.strftime("%I:%M %p")
@@ -223,6 +228,8 @@ if __name__  == '__main__' :
         num_list += 1
 
     for i in range(len(out_random)):
+        if arg_to_screen:
+            print(len(out_random[i][1]))
         pass
 
     if arg_to_screen:
