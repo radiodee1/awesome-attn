@@ -72,6 +72,15 @@ numbers = [
             'nine'
         ]
 
+ages = [
+    '10',
+    '22',
+    '52',
+    '44',
+    '5',
+    '1'
+        ]
+
 def pairs_from_strings(ques, ans_prefix, ans_word, ans_suffix):
     sp1 = ' '
     sp2 = ' '
@@ -93,10 +102,10 @@ def output_from_list(out_list, ans_list, q, a_prefix, a_suffix, pad_text=None):
         out_list += z
     pass
 
-def string_from_date_info(y, month, day, h = 0, m = 0):
+def string_from_date_info(y, month, day, h = 0, m = 0, current_time=False):
     num = 100
     now = datetime.datetime.now()
-    while num > 0:
+    while num > 0 and current_time == False:
         try:
             now = datetime.datetime(y, month, day, hour=h, minute=m)
         except:
@@ -109,6 +118,39 @@ def string_from_date_info(y, month, day, h = 0, m = 0):
     time = now.strftime("%I:%M %p")
     date = now.strftime("%B %d, %Y")
     return time + ", " + date 
+
+def make_single_context():
+
+    input_dict = {
+        'name': "jane",
+        'place': "new york",
+        'time': "dummy_time",
+        'food': 'chocolate',
+        'color': "blue",
+        'number': "7",
+        'age': '52'
+    }
+
+    input_dict['time'] = string_from_date_info(None,None,None, current_time=True)
+
+    txt_list = [
+        [[input_dict['name']], 'what is your name?', 'my name is', '.', 'names'],
+        [[input_dict['place']], 'where are you?', 'i am in', '.', 'places'],
+        [[input_dict['time']], 'what time is it?', 'it is', '.', 'times'],
+        [[input_dict['food']], 'what is your favorite food?', 'i like', '.', 'foods'],
+        [[input_dict['color']], 'what is your favorite color?', '', 'is my favorite color.', 'colors'],
+        [[input_dict['number']], 'what is your favorite number?', 'my favorite number is', '.', 'numbers'],
+        [[input_dict['age']], "how old are you?", "i am",".", 'ages']
+    ]
+    ctx_list = []
+    ctx_list_long = None
+    for i in txt_list:
+        output_from_list(ctx_list, i[0], i[1], i[2], i[3] , ctx_list_long )
+    ctx_list = [' '.join(i) for i in ctx_list]
+    ctx_list = ' '.join(ctx_list)
+    return  ctx_list
+
+
 
 if __name__  == '__main__' :
     #print(food)
@@ -182,7 +224,8 @@ if __name__  == '__main__' :
                 [times, 'what time is it?', 'it is','.', 'times'],
                 [foods, 'what is your favorite food?', 'i like','.', 'foods'],
                 [colors,'what is your favorite color?', '', 'is my favorite color.', 'colors'],
-                [numbers, 'what is your favorite number?', 'my favorite number is', '.','numbers' ]
+                [numbers, 'what is your favorite number?', 'my favorite number is', '.','numbers' ],
+                [ages, "how old are you?", "i am", ".", 'ages']
             ]
 
     out_list = []
@@ -253,3 +296,5 @@ if __name__  == '__main__' :
         z.close()
         pass
 
+    l = make_single_context()
+    print("\n", l)

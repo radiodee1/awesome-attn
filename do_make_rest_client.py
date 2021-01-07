@@ -6,6 +6,7 @@ import sys
 import argparse
 import pyonmttok
 import datetime
+from do_make_corpus_tab import make_single_context
 
 HOST="127.0.0.1"
 PORT=5000
@@ -29,7 +30,7 @@ def client_request(q_str, detokenize=False, to_screen=True):
 
 
         time_str = "this is the time. " + time + ', ' + date + ' .'
-        time_str = ""
+        time_str = make_single_context() + " question: " + q_str + ' answer: '
         time_str, _ = tokenizer.tokenize(time_str)
         time_str = ' '.join(time_str)
 
