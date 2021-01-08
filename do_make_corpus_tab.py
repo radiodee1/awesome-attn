@@ -155,9 +155,9 @@ def make_single_context():
 if __name__  == '__main__' :
     #print(food)
     parser = argparse.ArgumentParser(description='Make training file.')
-    parser.add_argument('--length', help='Base file from movie corpus for db output', default=0)
-    parser.add_argument('--test-on-screen', help='print some values to the screen.', action='store_true')
-    parser.add_argument('--file-pairs', help='shift and repeat movie data', action='store_true')
+    parser.add_argument('--length', help='Target length of q/a pairs', default=0)
+    parser.add_argument('--test-on-screen', help='Print some values to the screen.', action='store_true')
+    parser.add_argument('--file-pairs', help='Shift and repeat movie data', action='store_true')
     parser.add_argument('--tab-file',  help='Base file from movie corpus for db output', action='store_true')
     parser.add_argument('--random', help='Randomize saved values.', action='store_true')
     parser.add_argument('--large-context', help='Set large context', action='store_true')

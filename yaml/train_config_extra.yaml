@@ -8,12 +8,12 @@ data:
     corpus_1:
         path_src: data/bpe/train.src
         path_tgt: data/bpe/train.tgt
-        weight: 19
+        weight: 1
         #transforms: ['bpe']
     corpus_2:
         path_src: data/bpe/extra.src
         path_tgt: data/bpe/extra.tgt
-        weight: 1
+        weight: 19
     valid:
         path_src: data/bpe/valid.src
         path_tgt: data/bpe/valid.tgt

@@ -12,7 +12,10 @@ HOST="127.0.0.1"
 PORT=5000
 URL_ROOT="/"  #"/OpenNMT-py"
 
-def client_request(q_str, detokenize=False, to_screen=True):
+def client_request(q_str, detokenize=False, to_screen=True, lrg_context=True):
+
+    if lrg_context:
+        q_str = 'question: ' + q_str
 
     if True:
         tokenizer = pyonmttok.Tokenizer(
@@ -28,9 +31,11 @@ def client_request(q_str, detokenize=False, to_screen=True):
         time = now.strftime("%I:%M %p")
         date = now.strftime("%B %d, %Y")
 
-
-        time_str = "this is the time. " + time + ', ' + date + ' .'
-        time_str = make_single_context() + " question: " + q_str + ' answer: '
+        if lrg_context == False:
+            time_str = "this is the time. " + time + ', ' + date + ' .'
+        else:
+            time_str = make_single_context() # 
+            
         time_str, _ = tokenizer.tokenize(time_str)
         time_str = ' '.join(time_str)
 
@@ -112,6 +117,14 @@ def detokenize_example():
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Make rest client.')
+    parser.add_argument('--no-context', help='No context for q/a pairs.', action="store_true")
+    args = parser.parse_args()
+
+    arg_no_context = False
+
+    if args.no_context:
+        arg_no_context = True
 
     client_request('hello there', detokenize=False, to_screen=True)
     detokenize_example()
@@ -119,4 +132,4 @@ if __name__ == '__main__':
     if True:
         while True:
             i = input('> ')
-            client_request(i, detokenize=True, to_screen=True)
+            client_request(i, detokenize=True, to_screen=True, lrg_context= not arg_no_context)
