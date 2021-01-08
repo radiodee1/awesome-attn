@@ -97,8 +97,10 @@ def output_from_list(out_list, ans_list, q, a_prefix, a_suffix, pad_text=None):
         z =  [ pairs_from_strings(q, a_prefix, i, a_suffix) ]
         if pad_text is not None: # and isinstance(pad_text, str):
             if len(pad_text) == 1: pad_text = [pad_text]
-            z[0][1] = random.choice(pad_text) + \
-                      " " + z[0][0] + ' ' + z[0][1] + ' ' + prefix_q + z[0][0] + " " + prefix_a + z[0][1]
+            z[0][1] = str(random.choice(pad_text) +
+                    " " + # z[0][0] + ' ' + z[0][1] + ' ' +
+                    prefix_q + z[0][0] + " " + prefix_a + z[0][1]
+                    )
         out_list += z
     pass
 
