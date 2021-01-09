@@ -13,7 +13,7 @@ data:
     corpus_2:
         path_src: data/bpe/extra.src
         path_tgt: data/bpe/extra.tgt
-        weight: 19
+        weight: 1
     valid:
         path_src: data/bpe/valid.src
         path_tgt: data/bpe/valid.tgt

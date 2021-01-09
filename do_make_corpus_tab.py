@@ -91,14 +91,20 @@ def pairs_from_strings(ques, ans_prefix, ans_word, ans_suffix):
     x = [ques, z]
     return x
     
-def output_from_list(out_list, ans_list, q, a_prefix, a_suffix, pad_text=None):
+def output_from_list(out_list, ans_list, q, a_prefix, a_suffix, pad_text=None, encoder_context=False):
     for i in ans_list:
         #print(i)
         z =  [ pairs_from_strings(q, a_prefix, i, a_suffix) ]
         if pad_text is not None: # and isinstance(pad_text, str):
             if len(pad_text) == 1: pad_text = [pad_text]
-            z[0][1] = str(random.choice(pad_text) +
+            if not encoder_context:
+                z[0][1] = str(random.choice(pad_text) +
                     " " + # z[0][0] + ' ' + z[0][1] + ' ' +
+                    prefix_q + z[0][0] + " " + prefix_a + z[0][1]
+                    )
+            else:
+                z[0][0] = str(random.choice(pad_text) +
+                    " " +
                     prefix_q + z[0][0] + " " + prefix_a + z[0][1]
                     )
         out_list += z
@@ -164,6 +170,7 @@ if __name__  == '__main__' :
     parser.add_argument('--random', help='Randomize saved values.', action='store_true')
     parser.add_argument('--large-context', help='Set large context', action='store_true')
     parser.add_argument('--no-prefix', help='Remove Q and A on data.', action='store_true')
+    parser.add_argument('--encoder-context', help="Put context in the encoder area.", action="store_true")
 
     args = parser.parse_args()
     arg_length = 500
@@ -173,6 +180,7 @@ if __name__  == '__main__' :
     arg_random = False
     arg_ctx = False
     arg_no_prefix = False
+    arg_encoder_context = False
 
     if args.random:
         arg_random = True
@@ -200,6 +208,9 @@ if __name__  == '__main__' :
         arg_no_prefix = True
         prefix_a = ''
         prefix_q = ''
+
+    if args.encoder_context:
+        arg_encoder_context = True
 
     now = datetime.datetime.now()
     time = now.strftime("%I:%M %p")
@@ -254,7 +265,7 @@ if __name__  == '__main__' :
 
         #print("---")
         #print(ctx_list)
-        output_from_list(out, i[0], i[1], i[2], i[3] , ctx_list_long )
+        output_from_list(out, i[0], i[1], i[2], i[3] , ctx_list_long, encoder_context=arg_encoder_context )
         out_list.append(out)
         #print(out_list[0], 'with context')
 
