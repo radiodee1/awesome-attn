@@ -168,7 +168,7 @@ if __name__  == '__main__' :
     parser.add_argument('--file-pairs', help='Shift and repeat movie data', action='store_true')
     parser.add_argument('--tab-file',  help='Base file from movie corpus for db output', action='store_true')
     parser.add_argument('--random', help='Randomize saved values.', action='store_true')
-    parser.add_argument('--large-context', help='Set large context', action='store_true')
+    parser.add_argument('--large-context', help='Set large context. Default to decoder context.', action='store_true')
     parser.add_argument('--no-prefix', help='Remove Q and A on data.', action='store_true')
     parser.add_argument('--encoder-context', help="Put context in the encoder area.", action="store_true")
 
