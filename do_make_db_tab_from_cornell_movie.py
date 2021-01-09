@@ -204,25 +204,19 @@ if __name__ == '__main__':
             subreddit = 0  
             parent_data = False  
 
-            if done and row_counter % 256 == 0:
-                text = "i am {} .".format(name)
-                text2 = "this is {} .".format(name)
-                sql_insert_complete(comment_id_name, parent_id, text, text2, subreddit, created_utc, score)
-                if test_on_screen:
-                    print(text, row_counter)
-                    #exit()
-                pass
+
             
             if done : #and reply == '':
                 reply = str(format_data(row_out))
 
             
-                if body == '': body = reply[:]
+                if body == '':
+                    body = reply[:]
             
                 #if done: #acceptable(body) and acceptable(reply) and done :
                 done = False
                 
-                if args['repeat'] or row_counter % 2 == 0 : #or shift_and_repeat:
+                if args['repeat'] or row_counter % 2 == 0 or True : #or shift_and_repeat:
                     if test_on_screen :
                         print(body, '-body-',row_counter)
                         print(reply,'-reply-',row_counter)
@@ -235,10 +229,27 @@ if __name__ == '__main__':
                         else: # switch_comment_order:
                             comment_from = reply[:]
                             comment_to = body[:]
-                        sql_insert_complete(comment_id,parent_id,comment_from,comment_to,subreddit,created_utc,score)
+
+
+
+                        if comment_to != '' and comment_from != '' and comment_from != comment_to:
+                            sql_insert_complete(comment_id,parent_id,comment_from,comment_to,subreddit,created_utc,score)
+                            body = reply[:]
+                            done = False
+                        elif comment_to == comment_from:
+                            #row_counter -= 2
+                            body = reply[:]
+                            reply = ''
+                            done = False
+                            bucket = ''
+                            row = ''
+                            row_out = row_in = ''
+
+                            continue
+
                         done_counter += 1
 
-                    body = '' #reply[:]
+                    body = '' 
                     if shift_and_repeat:
                         body = reply[:]
 

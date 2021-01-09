@@ -473,22 +473,26 @@ if __name__ == '__main__':
                         line[0] = line_temp
 
                     if not arg_stagger and arg_classifier != "MRPC" and arg_classifier != "MNLI" and not arg_gpt2:
+                        print(line)
+                        skip_line = False
+                        if len(line) < 2: skip_line = True
 
-                        src.write(line[0].lower())
-                        save = line[0][:]
-                        if not line[0].endswith('\n'):
-                            src.write('\n')
-                        if arg_triplets:
-                            if arg_question is not None and arg_question != '':
-                                line[0] = arg_question
-                            ques.write(line[0].lower())
+                        if not skip_line:
+                            src.write(line[0].lower())
+                            save = line[0][:]
                             if not line[0].endswith('\n'):
-                                ques.write('\n')
-                        if auto_flag: line[1] = save #line[0]
-                        tgt.write(line[1].lower())
-                        if not line[1].endswith('\n'):
-                            tgt.write('\n')
-                        pass
+                                src.write('\n')
+                            if arg_triplets:
+                                if arg_question is not None and arg_question != '':
+                                    line[0] = arg_question
+                                ques.write(line[0].lower())
+                                if not line[0].endswith('\n'):
+                                    ques.write('\n')
+                            if auto_flag: line[1] = save #line[0]
+                            tgt.write(line[1].lower())
+                            if not line[1].endswith('\n'):
+                                tgt.write('\n')
+                            pass
 
                     elif arg_gpt2:
                         if num % 2 == 0 or arg_filter_gpt2:
