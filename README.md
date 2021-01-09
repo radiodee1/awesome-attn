@@ -14,7 +14,7 @@ The next few scripts split up the input file from the movie dialog corpus.
 * `./do_make_split.py --filename data/movie_lines.txt.tab.txt  --length 500 --start 0 --pairs --mode valid --force --reverse ` - simple `valid.from` and `.to` files. These are not truly 'holdout sets'. The data is repeated.
 * `./do_make_split.py --filename data/movie_lines.txt.tab.txt  --length 500 --start 0 --pairs --mode test --force --reverse ` - simple `test.from` and `.to` files. These are not truly 'holdout sets'. The data is repeated.
 
-This script generates the 'extra' files for the transformer training. It is not required.
+This script generates the 'extra' files for the transformer training. It is not required. This is a sort of 'dummy' corpus.
 
 * `./do_make_corpus_tab.py --file-pairs  --test-on-screen --length 150000 --large-context --encoder-context ` - run this if you want the 'extra' corpus.
 
