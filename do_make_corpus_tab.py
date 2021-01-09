@@ -107,6 +107,7 @@ def output_from_list(out_list, ans_list, q, a_prefix, a_suffix, pad_text=None, e
                     " " +
                     prefix_q + z[0][0] + " " + prefix_a + z[0][1]
                     )
+                #z[0][1] = prefix_a + z[0][1]
         out_list += z
     pass
 
