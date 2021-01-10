@@ -69,6 +69,6 @@ param_init: 0.0
 param_init_glorot: 'true'
 position_encoding: 'true'
 
-world_size: 1
+world_size: 0
 gpu_ranks:
 - 0
