@@ -12,10 +12,13 @@ HOST="127.0.0.1"
 PORT=5000
 URL_ROOT="/"  #"/OpenNMT-py"
 
-def client_request(q_str, detokenize=False, to_screen=True, lrg_context=True):
+question_prefix = 'question: '
+answer_prefix = 'answer: '
+
+def client_request(q_str, detokenize=False, to_screen=True, lrg_context=True, encoder_context=False):
 
     if lrg_context:
-        q_str = 'question: ' + q_str
+        q_str = question_prefix + q_str
 
     if True:
         tokenizer = pyonmttok.Tokenizer(
@@ -32,16 +35,25 @@ def client_request(q_str, detokenize=False, to_screen=True, lrg_context=True):
         date = now.strftime("%B %d, %Y")
 
         if lrg_context == False:
-            time_str = "this is the time. " + time + ', ' + date + ' .'
+            time_str = "" # "this is the time. " + time + ', ' + date + ' .'
         else:
-            time_str = make_single_context() # 
-            
+            time_str = make_single_context() + ' ' + answer_prefix #
+
+        if encoder_context == True:
+            time_str = ""
+            q_str = make_single_context() + ' ' + q_str
+        else:
+            print('do not place context in "ref" section.')
+
         time_str, _ = tokenizer.tokenize(time_str)
         time_str = ' '.join(time_str)
 
+    arg_tgt_prefix_str = '"' + str(not arg_no_context and len(time_str) > 0).lower() + '"'
+
+
     headers_1 = {"Content-Type": "application/json"}               ## must be dictionary!!
     query_1 = '[{"src":"' +  q_str + '" , "id": 100}]'              ## must be string!!
-    query_2 = '[{"src":"' +  q_str + '", "tgt_prefix": "true" , "ref":  "' + time_str + '" ,   "id": 100}]'   ## must be string!!
+    query_2 = '[{"src":"' +  q_str + '", "tgt_prefix": ' + arg_tgt_prefix_str + ' , "ref":  "' + time_str + '" ,   "id": 100}]'   ## must be string!!
     
     print(query_2)
 
@@ -118,18 +130,33 @@ def detokenize_example():
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Make rest client.')
-    parser.add_argument('--no-context', help='No context for q/a pairs.', action="store_true")
+    parser.add_argument('--no-context', help='No context for q/a pairs in "ref" section.', action="store_true")
+    parser.add_argument('--encoder-context', help='Place context in encoder input.', action='store_true')
+    parser.add_argument('--prefix', help='Place prefix before q/a pairs', action='store_true')
     args = parser.parse_args()
 
     arg_no_context = False
+    arg_encoder_context = False
 
     if args.no_context:
         arg_no_context = True
 
-    client_request('hello there', detokenize=False, to_screen=True)
-    detokenize_example()
+    if args.encoder_context:
+        arg_encoder_context = True
+
+    if not args.prefix:
+        question_prefix = ''
+        answer_prefix = ''
+
+    client_request('hello there', detokenize=False, to_screen=True,
+                lrg_context= not arg_no_context,
+                encoder_context=arg_encoder_context)
+
+    #detokenize_example()
 
     if True:
         while True:
             i = input('> ')
-            client_request(i, detokenize=True, to_screen=True, lrg_context= not arg_no_context)
+            client_request(i, detokenize=True, to_screen=True,
+                        lrg_context= not arg_no_context,
+                        encoder_context=arg_encoder_context)
