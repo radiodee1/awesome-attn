@@ -35,6 +35,7 @@ shift_and_repeat = False
 test_on_screen = False
 switch_comment_order = True
 use_text_file = False
+skip_count = 0
 
 txtname = str(args['basefile'])
 if args['test_on_screen'] is not None: test_on_screen = args['test_on_screen']
@@ -244,12 +245,12 @@ if __name__ == '__main__':
                             bucket = ''
                             row = ''
                             row_out = row_in = ''
-
+                            skip_count += 1
                             continue
 
                         done_counter += 1
 
-                    body = '' 
+                    body = ''
                     if shift_and_repeat:
                         body = reply[:]
 
@@ -267,3 +268,5 @@ if __name__ == '__main__':
         w_file.close()
     else:
         os.system("mv input.db raw/input_movie.db")
+
+print('skip', skip_count)
