@@ -245,8 +245,11 @@ if __name__ == '__main__':
                             bucket = ''
                             row = ''
                             row_out = row_in = ''
-                            skip_count += 1
+                            #skip_count += 1
                             continue
+                        else:
+                            skip_count += 1
+                            pass
 
                         done_counter += 1
 
