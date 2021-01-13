@@ -17,7 +17,7 @@ answer_prefix = 'answer: '
 
 def client_request(q_str, detokenize=False, to_screen=True, lrg_context=True, encoder_context=False):
 
-    if lrg_context:
+    if lrg_context or True:
         q_str = question_prefix + q_str
 
     if True:
