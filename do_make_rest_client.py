@@ -54,7 +54,10 @@ def client_request(q_str, detokenize=False, to_screen=True, lrg_context=True, en
     headers_1 = {"Content-Type": "application/json"}               ## must be dictionary!!
     query_1 = '[{"src":"' +  q_str + '" , "id": 100}]'              ## must be string!!
     query_2 = '[{"src":"' +  q_str + '", "tgt_prefix": ' + arg_tgt_prefix_str + ' , "ref":  "' + time_str + '" ,   "id": 100}]'   ## must be string!!
-    
+
+    if not lrg_context:
+        query_2 = query_1
+
     print(query_2)
 
     response = requests.post(
