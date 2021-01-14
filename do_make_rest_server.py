@@ -32,7 +32,7 @@ if __name__ == "__main__":
         os.system("./bin/server.py --ip " + IP + " --port " + PORT + " --url_root " + URL_ROOT + " --config " + CONFIG)
         exit()
     else:
-        URL_ROOT="/OpenNMT-py"
+        URL_ROOT="/" #/OpenNMT-py"
         os.system("onmt_server --ip " + IP + " --port " + PORT + " --url_root " + URL_ROOT + " --config " + CONFIG)
         exit()
     
