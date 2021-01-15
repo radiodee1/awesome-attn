@@ -660,8 +660,9 @@ class ServerModel(object):
             sequence.pop("src")
             sequence["ref"] = [sequence.get('ref', None)]
             sequence["n_seg"] = 1
-            sequence["seg"] = [sequence['ref'][0][:-1] + ' ' + sequence['seg'][0]]
-            sequence['ref'] = []
+            if 'ref' in sequence and sequence['ref'] is not None and sequence['ref'][0] is not None:
+                sequence["seg"] = [sequence['ref'][0][:-1] + ' ' + sequence['seg'][0]]
+                sequence['ref'] = []
             #print(sequence, 'seq -- bin/t_s.py')
 
         if self.preprocess_opt is not None:

@@ -68,7 +68,7 @@ def client_request(q_str, detokenize=False, to_screen=True, lrg_context=True, en
 
     if to_screen:
         print(response)
-        print(response.json())
+        #print(response.json())
         print('-----')
     try:
         response = response.json()[0][0]['tgt']
