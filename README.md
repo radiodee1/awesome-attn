@@ -33,5 +33,5 @@ Finally, do this every time you want to run a training session.
 
 These two files are for testing the model. Both have several command-line options. To use them, open two terminals and start each script in its own thread.
 
-* `./do_make_rest_server.sh` - This is the server.
+* `./do_make_rest_server.py` - This is the server.
 * `./do_make_rest_client.py` - This is the client.
