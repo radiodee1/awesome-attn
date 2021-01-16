@@ -19,7 +19,9 @@ data:
     valid:
         path_src: data/bpe/valid.src
         path_tgt: data/bpe/valid.tgt
-
+        transforms: [prefix]
+        src_prefix: "question: "
+        tgt_prefix: "answer: "
 
 save_model: data/transformer_movie_chat
 valid_steps: 100 #10000
