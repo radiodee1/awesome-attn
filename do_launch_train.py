@@ -19,10 +19,15 @@ if os.path.isfile(CORPUS_EXTRA):
 
 parser = argparse.ArgumentParser(description='Start training run.')
 parser.add_argument('--gpu', help='Launch with gpu.', action="store_true")
+parser.add_argument('--world-size', help="Set world size.", type=int, default=1)
 parser.add_argument('trainfrom', help='Train from this saved checkpoint.', nargs="?")
 args = parser.parse_args()
 
 print(args)
+
+GPU="--world_size " + str(args.world_size) + " --gpu_ranks " + " ".join([str(i) for i in range(0, int(args.world_size) - 0 )])
+
+print(GPU)
 
 if not args.gpu:
     GPU=''
