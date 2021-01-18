@@ -21,23 +21,25 @@ parser = argparse.ArgumentParser(description='Start training run.')
 parser.add_argument('--gpu', help='Launch with gpu.', action="store_true")
 parser.add_argument('--world-size', help="Set world size.", type=int, default=1)
 parser.add_argument('trainfrom', help='Train from this saved checkpoint.', nargs="?")
+parser.add_argument('--batch-size', help="Set batch size. (2048, 4096, etc...)", type=int, default=2048)
 args = parser.parse_args()
 
 print(args)
 
 GPU="--world_size " + str(args.world_size) + " --gpu_ranks " + " ".join([str(i) for i in range(0, int(args.world_size) - 0 )])
-
+BATCH="--batch_size " + str(args.batch_size)
 print(GPU)
+print(BATCH)
 
 if not args.gpu:
     GPU=''
 
 if args.trainfrom != None and os.path.isfile(str(args.trainfrom)):
     print("train from", str(args.trainfrom))
-    os.system("onmt_train --config " + CONFIG +" --train_from " + str(args.trainfrom) + " " + GPU)
+    os.system("onmt_train --config " + CONFIG +" --train_from " + str(args.trainfrom) + " " + GPU + " " + BATCH)
     exit()
 
-os.system("onmt_train --config " + CONFIG + " " + GPU)
+os.system("onmt_train --config " + CONFIG + " " + GPU + " " + BATCH)
 
 '''
 #onmt_train --config yaml/train_config.yaml
